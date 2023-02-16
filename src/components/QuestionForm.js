@@ -20,6 +20,26 @@ function QuestionForm(props) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(formData);
+    let data = {
+      prompt: "",
+      answers: [],
+      correctIndex: 0,
+    };
+    data.prompt = formData.prompt;
+    data.correctIndex = formData.correctIndex;
+    data.answers.push(formData.answer1);
+    data.answers.push(formData.answer2);
+    data.answers.push(formData.answer3);
+    data.answers.push(formData.answer4);
+    console.log("swali ..", data);
+
+    fetch("http://localhost:4000/questions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((response) => console.log(response.json()));
   }
 
   return (
